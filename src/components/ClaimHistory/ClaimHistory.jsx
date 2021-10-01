@@ -68,7 +68,7 @@ const ClaimHistory = () => {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.hash}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell align="center" className={classes.td}>
