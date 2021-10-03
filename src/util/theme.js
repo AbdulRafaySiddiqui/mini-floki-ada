@@ -54,17 +54,16 @@ const theme = createTheme({
         },
       ],
 
-      styleOverrides:{
-        root:{
-          textTransform:"none",
+      styleOverrides: {
+        root: {
+          textTransform: "none",
         },
-        containedSecondary:{
+        containedSecondary: {
           color: "white",
           boxShadow: "none",
-          borderRadius:360,
-          
-        }
-      }
+          borderRadius: 360,
+        },
+      },
     },
     MuiTypography: {
       defaultProps: {
@@ -77,6 +76,34 @@ const theme = createTheme({
       },
     },
     MuiCard: {
+      variants: [
+        {
+          props: { variant: "transparent" },
+          style: {
+            boxShadow: "none",
+            padding: "30px 20px",
+            borderStyle: "dotted",
+            borderWidth: 4,
+            borderColor: "#632b0c",
+            borderRadius: 20,
+            backgroundColor: "transparent",
+            width: "fit-content",
+          },
+        },
+        {
+          props: { variant: "transparent", fullWidth: true },
+          style: {
+            boxShadow: "none",
+            padding: "30px 20px",
+            borderStyle: "dotted",
+            borderWidth: 4,
+            borderColor: "#632b0c",
+            borderRadius: 20,
+            backgroundColor: "transparent",
+            width: "100%",
+          },
+        },
+      ],
       styleOverrides: {
         root: {
           boxShadow: "none",
@@ -86,19 +113,35 @@ const theme = createTheme({
           borderColor: "#632b0c",
           borderRadius: 20,
           backgroundColor: "#f0d095",
-          width:"100%",
+          width: "100%",
         },
       },
     },
-    MuiTable:{
-      styleOverrides:{
-        root:{
-          boxShadow:"7px 7px 55px 0px #f2f3f6",
-          background: "white",
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          // boxShadow: "7px 7px 55px 0px #f2f3f6",
+          background: "transparent",
           // border: "2px solid red"
         },
-      
+      },
+    },
+    MuiTableHead:{
+      styleOverrides:{
+        root:{
+          background: "transparent",
+          
+        }
       }
+    },
+    MuiTableCell:{
+      styleOverrides:{
+        root:{
+          background: "transparent",
+          border: "none"  
+        }
+      }
+
     }
   },
   overrides: {

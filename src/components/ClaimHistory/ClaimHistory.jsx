@@ -6,17 +6,20 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: 40,
+    marginTop: 80,
   },
   th: {
     color: theme.palette.primary.main,
     fontWeight: 800,
-    fontSize: 20,
+    fontSize: 24,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 16,
+    },
   },
   td: {
     fontWeight: 600,
@@ -38,14 +41,12 @@ const rows = [
 const ClaimHistory = () => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Typography align="center" variant="h3" style={{ marginBottom: 10 }}>
+    <Container maxWidth="md" className={classes.root}>
+      <Typography align="center" variant="h4" style={{ marginBottom: 20 }}>
         <b>Claim History</b>
       </Typography>
-      <Typography align="center"  style={{ marginBottom: 10 }}>
-          The Latest 100 claims
-          </Typography>
-      <Table sx={{}} aria-label="simple table" stickyHeader={true}>
+
+      <Table stickyHeader={true}>
         <TableHead>
           <TableRow>
             <TableCell align="center" className={classes.th}>
@@ -90,7 +91,7 @@ const ClaimHistory = () => {
           ))}
         </TableBody>
       </Table>
-    </div>
+    </Container>
   );
 };
 export default ClaimHistory;
