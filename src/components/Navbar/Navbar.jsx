@@ -1,10 +1,11 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import Logo from "src/assets/images/logo/full.png";
-import { Container, Typography, Link, Button , Popover} from "@mui/material";
+import { Container, Typography, Link, Button, Popover } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { v4 as uuid } from "uuid";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useWalletModal } from '@react-dapp/wallet'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,14 +66,14 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
     },
   },
-  menuBtn:{
+  menuBtn: {
     [theme.breakpoints.up("md")]: {
-      display:"none"
+      display: "none"
     }
   },
-  paper:{
+  paper: {
     width: "calc(100%) !important",
-    left:"0px !important",
+    left: "0px !important",
     maxWidth: "100%"
   }
 }));
@@ -137,15 +138,16 @@ const links = [
 ];
 
 const Navbar = () => {
+  const { setOpen: openWallet } = useWalletModal();
   const classes = useStyles();
-const [open,setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false)
 
   const handleClick = (event) => {
-setOpen(true)
+    setOpen(true)
   };
 
   const handleClose = () => {
-setOpen(false)
+    setOpen(false)
   };
 
 
@@ -162,13 +164,16 @@ setOpen(false)
             <Button color="secondary" variant="bold">
               ADA Vault
             </Button>
+            <Button color="secondary" variant="bold" onClick={() => openWallet(true)}>
+              Connect
+            </Button>
           </div>
           <Button className={classes.menuBtn} onClick={handleClick}>
             <MenuIcon />
           </Button>
           <Popover
             open={open}
-           
+
             onClose={handleClose}
             anchorReference="anchorPosition"
             anchorPosition={{ top: 80, left: 0 }}
@@ -181,14 +186,14 @@ setOpen(false)
               horizontal: 'left',
             }}
             PaperProps={{
-              className:classes.paper
+              className: classes.paper
             }}
           >
-            <div style={{paddingLeft:20,paddingRight:20,paddingTop:20,}}>
+            <div style={{ paddingLeft: 20, paddingRight: 20, paddingTop: 20, }}>
 
-            {links.map((item) => (
-              <NavLink key={uuid()} {...item} mobile/>
-            ))}</div>
+              {links.map((item) => (
+                <NavLink key={uuid()} {...item} mobile />
+              ))}</div>
           </Popover>
         </div>
       </Container>
@@ -198,18 +203,18 @@ setOpen(false)
 
 export default Navbar;
 
-const NavLink = ({ text, href, links,mobile }) => {
+const NavLink = ({ text, href, links, mobile }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.linkWrapper}>
-      <Link href={href} className={classes.linkText} style={mobile&& {height:50,display:"block"}}>
+      <Link href={href} className={classes.linkText} style={mobile && { height: 50, display: "block" }}>
         {text} {links && <KeyboardArrowDownIcon className={classes.arrow} />}
       </Link>
       {links && (
-        <div id="nav-drop" className={classes.dropDown} style={mobile&& {position:"relative"}}>
+        <div id="nav-drop" className={classes.dropDown} style={mobile && { position: "relative" }}>
           {links.map((item) => (
-            <Link key={uuid()} href={item.href} className={classes.linkText2} style={mobile&& {height:40}}>
+            <Link key={uuid()} href={item.href} className={classes.linkText2} style={mobile && { height: 40 }}>
               {item.text}
             </Link>
           ))}

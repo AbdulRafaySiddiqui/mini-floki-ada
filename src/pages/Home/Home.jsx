@@ -18,9 +18,8 @@ const Home = () => {
     <div className={classes.root}>
       <Welcome />
       <Vault />
-
-      <ClaimHistory />
       <Rewards />
+      <ClaimHistory />
     </div>
   );
 };

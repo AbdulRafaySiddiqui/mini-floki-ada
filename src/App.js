@@ -4,21 +4,24 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import Routes from "./Routes";
 import theme from "./util/theme";
+import { WalletProvider } from '@react-dapp/wallet'
 
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Container maxWidth="xl" disableGutters>
-          <div className="mainContainer">
-            <Navbar />
-            <div>
-              <Routes />
+      <WalletProvider>
+        <ThemeProvider theme={theme}>
+          <Container maxWidth="xl" disableGutters>
+            <div className="mainContainer">
+              <Navbar />
+              <div>
+                <Routes />
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </Container>
-      </ThemeProvider>
+          </Container>
+        </ThemeProvider>
+      </WalletProvider>
     </>
   );
 }
