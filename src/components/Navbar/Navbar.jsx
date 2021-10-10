@@ -5,7 +5,7 @@ import { Container, Typography, Link, Button, Popover } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { v4 as uuid } from "uuid";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useWalletModal } from '@react-dapp/wallet'
+import { useWalletModal, useWeb3 } from '@react-dapp/wallet'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -139,6 +139,8 @@ const links = [
 
 const Navbar = () => {
   const { setOpen: openWallet } = useWalletModal();
+  const { connected, displayAccount } = useWeb3();
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false)
 
@@ -164,8 +166,8 @@ const Navbar = () => {
             <Button color="secondary" variant="bold">
               ADA Vault
             </Button>
-            <Button color="secondary" variant="bold" onClick={() => openWallet(true)}>
-              Connect
+            <Button color="secondary" variant="bold" onClick={() => connected ? null : openWallet(true)}>
+              {connected ? displayAccount : 'Connect'}
             </Button>
           </div>
           <Button className={classes.menuBtn} onClick={handleClick}>

@@ -6,19 +6,22 @@ import ClaimHistory from "src/components/ClaimHistory/ClaimHistory";
 import Welcome from "./components/Welcome";
 import Vault from "./components/Vault";
 import Rewards from "./components/Rewards";
+import useTokenInfo from "src/hooks/useTokenInfo";
+import { useEagerConnect } from "@react-dapp/wallet";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
 }));
 
 const Home = () => {
+  useEagerConnect();
   const classes = useStyles();
-
+  const { tokenBalance, rewardTokenBalance, reward, canClaimReward, claimTimeLeft } = useTokenInfo();
   return (
     <div className={classes.root}>
       <Welcome />
-      <Vault />
-      <Rewards />
+      <Vault tokenBalance={tokenBalance} rewardTokenBalance={rewardTokenBalance} reward={reward} />
+      <Rewards canClaimReward={canClaimReward} reward={reward} claimTimeLeft={claimTimeLeft} />
       <ClaimHistory />
     </div>
   );

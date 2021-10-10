@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Vault = () => {
+const Vault = ({ tokenBalance, rewardTokenBalance, reward }) => {
   const classes = useStyles();
 
   return (
@@ -19,22 +19,22 @@ const Vault = () => {
       </Typography>
       <Grid container spacing={4} style={{ marginTop: 20 }}>
         <Grid item xs={12} sm={6}>
-          <VaultCard text="[Total Balance] ___ ADA" value="0 CAKE" />
+          <VaultCard text="$MFLOKIADA Balance" value={tokenBalance} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <VaultCard text="Top 100 Holders Standings" value="0 CAKE" />
+          <VaultCard text="ADA Balance" value={rewardTokenBalance} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <VaultCard text="Top 100 holders list" value="0 CAKE" />
+          <VaultCard text="ADA Vault Rewards" value={reward} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <VaultCard text="Wallet $MFLOKIADA Balance" value="0 CAKE" />
+          <VaultCard text="TOP 100 Rewards" value="0" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <VaultCard text="Your ADA Vault Rewards" value="0 CAKE" />
+          <VaultCard text="Top 100 Holders Standings" value="NaN" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <VaultCard text="TOP 100 Rewards" value="0 CAKE" />
+          <VaultCard text="Top 100 holders list" value="0" />
         </Grid>
       </Grid>
     </Container>
