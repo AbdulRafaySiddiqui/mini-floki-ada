@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Router } from "react-router";
+import { Router } from "react-router-dom";
 import history from "./util/history";
 
 ReactDOM.render(

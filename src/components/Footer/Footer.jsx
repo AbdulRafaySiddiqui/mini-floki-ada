@@ -8,10 +8,10 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: 100,
+    // height: 100,
     padding: 10,
     paddingTop: 60,
-    paddingBottom: 69,
+    paddingBottom: 60,
     boxShadow: "1px 0 26px 3px #c9c9c9",
     backgroundColor: theme.palette.primary.dark,
     borderRadius: 20,
@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     "& p": {
       margin: "0px 5px",
     },
+    flexWrap: "wrap",
+    [theme.breakpoints.down("xs")]: {},
   },
   social: {
     display: "flex",
