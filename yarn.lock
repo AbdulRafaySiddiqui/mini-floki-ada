@@ -2214,10 +2214,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.2.tgz#0798c03351f0dea1a5a4cabddf26a55a7cbee590"
   integrity sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ==
 
-"@react-dapp/wallet@^0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@react-dapp/wallet/-/wallet-0.0.29.tgz#18b838eae1c8c37145d24cd378ce1fb659109850"
-  integrity sha512-IX7sqriPXQrshoaijV/DxFjs0ZhRZdCsqB7tNWX6ahmlyTVFilSjOZJ/DRByuzX1GoSrz6nSwzqZ9yE+jxOrpw==
+"@react-dapp/wallet@^0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@react-dapp/wallet/-/wallet-0.0.30.tgz#b1e56c3abc7c63780db43a62d4259d27e40ebfd5"
+  integrity sha512-3PAuNEDuKoay5pi75PALJ0lBznOWZpQXjtI1sQG2JTGvMygSwz3aC352tG315LGbk7VRAKYfbhJ+GESc5NBMDA==
   dependencies:
     react-modal "^3.14.3"
     react-scripts "4.0.3"
