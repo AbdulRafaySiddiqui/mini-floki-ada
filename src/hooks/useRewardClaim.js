@@ -4,7 +4,7 @@ import tokenAbi from '../assets/contractts/token_abi.json'
 import rewardClaimAbi from '../assets/contractts/reward_claim_abi.json'
 import { TOKEN_ADDRESS, REWARD_CLAIM_ADDRESS } from '../assets/constants'
 
-export const useNormalRewardClaim = () => {
+export const useNormalRewardClaim = (reload) => {
     const contract = useContract(tokenAbi, TOKEN_ADDRESS)
     const { account } = useWeb3()
 
@@ -14,6 +14,8 @@ export const useNormalRewardClaim = () => {
         setTxPending(true)
         try {
             await contract.methods.claimReward().send({ from: account })
+            if (reload)
+                reload()
         } catch (e) {
             console.log(e)
         }

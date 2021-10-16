@@ -7,6 +7,7 @@ import Welcome from "./components/Welcome";
 import Vault from "./components/Vault";
 import Rewards from "./components/Rewards";
 import useTokenInfo from "src/hooks/useTokenInfo";
+import useTopHolders from "src/hooks/useTopHolders";
 import { useEagerConnect } from "@react-dapp/wallet";
 
 const useStyles = makeStyles((theme) => ({
@@ -16,12 +17,13 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   useEagerConnect();
   const classes = useStyles();
-  const { tokenBalance, rewardTokenBalance, reward, canClaimReward, claimTimeLeft } = useTokenInfo();
+  const { tokenBalance, rewardTokenBalance, reward, claimTimeLeft, reload } = useTokenInfo();
+  
   return (
     <div className={classes.root}>
       <Welcome />
       <Vault tokenBalance={tokenBalance} rewardTokenBalance={rewardTokenBalance} reward={reward} />
-      <Rewards canClaimReward={canClaimReward} reward={reward} claimTimeLeft={claimTimeLeft} />
+      <Rewards reward={reward} claimTimeLeft={claimTimeLeft} reload={reload} />
       <ClaimHistory />
     </div>
   );

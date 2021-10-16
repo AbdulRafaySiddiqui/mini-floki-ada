@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { Button, Card, Container, Grid, Typography } from "@mui/material";
 import { useNormalRewardClaim } from "src/hooks/useRewardClaim";
-import { getTimeLeft } from '@react-dapp/wallet'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Rewards = ({ reward, canClaimReward, claimTimeLeft }) => {
+const Rewards = ({ reward, claimTimeLeft, reload }) => {
   const classes = useStyles();
-  const { txPending, claim } = useNormalRewardClaim()
+  const { txPending, claim } = useNormalRewardClaim(reload)
   return (
     <Container maxWidth="md" className={classes.root}>
       <Typography align="center" variant="h4" style={{ margin: "20px 20px" }}>
@@ -27,7 +26,7 @@ const Rewards = ({ reward, canClaimReward, claimTimeLeft }) => {
       </Typography>
       <Grid container spacing={4}>
         <Grid item xs={12} sm={6}>
-          <Reward title='ADA Vault Rewards' reward={reward} pending={txPending} claim={claim} />
+          <Reward title='ADA Vault Rewards' reward={reward} pending={txPending} claim={claim} claimTimeLeft={claimTimeLeft} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Reward title='Top 100 Holder Rewards' reward={0} pending={false} claim={null} />
@@ -41,9 +40,37 @@ export default Rewards;
 
 const Reward = ({ title, reward, claim, pending, claimTimeLeft }) => {
   const classes = useStyles();
-  const [timeLeft, setTimeLeft] = useState("");
+  const [timeLeft, setTimeLeft] = useState(null);
 
-  const getTimeText = ({ days, hours, minutes, seconds }) => {
+  const getTimeLeft = (delta) => {
+    if (!delta || delta <= 0 || delta === "0") return null;
+
+    // calculate (and subtract) whole days
+    var days = Math.floor(delta / 86400);
+    delta -= days * 86400;
+    days = parseInt(days);
+
+    // calculate (and subtract) whole hours
+    var hours = Math.floor(delta / 3600) % 24;
+    delta -= hours * 3600;
+    hours = parseInt(hours);
+
+    // calculate (and subtract) whole minutes
+    var minutes = Math.floor(delta / 60) % 60;
+    delta -= minutes * 60;
+    minutes = parseInt(minutes);
+
+    // what's left is seconds
+    var seconds = delta % 60;
+    seconds = parseInt(seconds);
+
+    return { days, hours, minutes, seconds };
+  };
+
+  const getTimeText = (timeLeft) => {
+    if (!timeLeft) return null;
+    const { days, hours, minutes, seconds } = timeLeft
+
     const i = 1;
     const format = {
       days: ["D", "Days"],
@@ -52,7 +79,7 @@ const Reward = ({ title, reward, claim, pending, claimTimeLeft }) => {
       seconds: ["S", "Seconds"]
     }
 
-    let text = null;
+    let text = '';
     if (days > 0)
       text += ` ${days} ${format.days[i]}`
     if (hours > 0)
@@ -65,10 +92,16 @@ const Reward = ({ title, reward, claim, pending, claimTimeLeft }) => {
     return text;
   }
 
-  setInterval(() => {
-    const time = getTimeLeft(claimTimeLeft - Math.floor((new Date()).getTime() / 1000))
-    setTimeLeft(getTimeText(time))
-  }, 1000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const time = getTimeLeft(claimTimeLeft - Math.floor((new Date()).getTime() / 1000))
+      console.log(time)
+      setTimeLeft(getTimeText(time))
+
+      if (!time)
+        clearInterval(interval)
+    }, 1000)
+  }, [claimTimeLeft])
 
   return (
     <Card
