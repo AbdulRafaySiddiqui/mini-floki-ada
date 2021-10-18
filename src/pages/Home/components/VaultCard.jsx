@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    cursor: 'pointer',
     border: "1px solid #e2e7fa",
     borderRadius: 16,
     padding: 40,
@@ -24,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const VaultCard = ({ text, value }) => {
+const VaultCard = ({ text, value, onClick }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={onClick}>
       <div className={classes.valueContainer}>
         <img src={Paw} width="60px" alt="" />
         <Typography variant="h4" align="center">

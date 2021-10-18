@@ -5,6 +5,7 @@ import VaultCard from "./VaultCard";
 import useTopHolders from "src/hooks/useTopHolders";
 import { useWeb3 } from "@react-dapp/wallet";
 import { ordinalSuffixOf } from "src/util/utils";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,7 @@ const Vault = ({ tokenBalance, rewardTokenBalance, reward }) => {
   const topHolders = useTopHolders();
   const { account } = useWeb3()
   const [topHolderStanding, setTopHolderStanding] = useState(message);
+  const history = useHistory()
 
   useEffect(() => {
     const calculateTopHolderStanding = () => {
@@ -51,7 +53,7 @@ const Vault = ({ tokenBalance, rewardTokenBalance, reward }) => {
           <VaultCard text="ADA Balance" value={rewardTokenBalance} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <VaultCard text="Top 100 holders list" value="0" />
+          <VaultCard text="Top 100 holders list" value="->" onClick={() => history.push('/top-holders')} />
         </Grid>
       </Grid>
     </Container>

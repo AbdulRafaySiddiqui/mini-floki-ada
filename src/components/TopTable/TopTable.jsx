@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: `1px solid ${theme.palette.primary.dark}`,
   },
   row: {
+    cursor: 'pointer',
     transition: "all 200ms ease-in-out",
     "&:hover": {
       backgroundColor: theme.palette.primary.dark,

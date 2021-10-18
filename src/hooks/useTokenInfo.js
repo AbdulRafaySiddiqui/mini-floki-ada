@@ -63,7 +63,7 @@ const useTokenInfo = () => {
             setReward(new BigNumber(result.calculateReward.callsReturnContext[0].returnValues[0].hex).div(new BigNumber(10).exponentiatedBy(18)).toFixed(2))
             setClaimTimeLeft(new BigNumber(result.nextAvailableClaimDate.callsReturnContext[0].returnValues[0].hex))
             const _rewards = await getUserRewards(account)
-            // setTopHolderReward(new BigNumber(_rewards).div(new BigNumber(10).exponentiatedBy(18)).toFixed(2))
+            setTopHolderReward(new BigNumber(_rewards).div(new BigNumber(10).exponentiatedBy(18)).toFixed(2))
             console.log(_rewards)
 
             const token = new web3.eth.Contract(tokenAbi, TOKEN_ADDRESS);
