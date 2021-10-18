@@ -181,6 +181,7 @@ const Navbar = () => {
             onClose={handleClose}
             anchorReference="anchorPosition"
             anchorPosition={{ top: 80, left: 0 }}
+            
             anchorOrigin={{
               vertical: "bottom",
               horizontal: "left",
@@ -197,7 +198,7 @@ const Navbar = () => {
               {links.map((item) => (
                 <NavLink key={uuid()} {...item} mobile />
               ))}
-              <Button
+              {/* <Button
                 color="secondary"
                 variant="bold"
                 fullWidth
@@ -208,7 +209,7 @@ const Navbar = () => {
                 }}
               >
                 {connected ? displayAccount : "Connect"}
-              </Button>
+              </Button> */}
             </div>
           </Popover>
         </div>
