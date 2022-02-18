@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const columns = ["Account", "Amount"];
+const columns = ["S.No.", "Account", "Amount"];
 
 const Top100 = () => {
   const classes = useStyles();
@@ -25,7 +25,7 @@ const Top100 = () => {
         <Typography align="center" variant="h4" className={classes.heading}>
           <b>Top 100 Holders</b>
         </Typography>
-        <TopTable columns={columns} rows={topHolder.map((e) => [e.account, e.amount])} />
+        <TopTable columns={columns} rows={topHolder.map((e, i) => [i + 1, e.account, e.amount])} />
       </Container>
     </div>
   );

@@ -32,7 +32,7 @@ const Welcome = () => {
           <Typography variant="h3" className={classes.text}>
             Welcome to the
             <br /> MINIFLOKIADA
-            <br /> Vaults!
+            <br /> Vault!
             <br />
             <br />
             Time to Claim your

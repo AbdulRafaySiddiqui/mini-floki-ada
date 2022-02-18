@@ -9,7 +9,9 @@ import { WalletProvider } from '@react-dapp/wallet'
 function App() {
   return (
     <>
-      <WalletProvider>
+      <WalletProvider config={{
+        supportedChainIds: [56],
+      }}>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl" disableGutters>
             <div className="mainContainer">

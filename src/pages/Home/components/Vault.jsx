@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { Container, Grid, Typography } from "@mui/material";
 import VaultCard from "./VaultCard";
 import useTopHolders from "src/hooks/useTopHolders";
-import { useWeb3 } from "@react-dapp/wallet";
+import { toLower, useWeb3 } from "@react-dapp/wallet";
 import { ordinalSuffixOf } from "src/util/utils";
 import { useHistory } from "react-router";
 
@@ -13,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Vault = ({ tokenBalance, rewardTokenBalance, reward }) => {
-  const message = "You aren't a top holder yet!"
+const Vault = ({ totalUserTopReward, tokenBalance, topHolderReward, rewardTokenBalance, reward, totalRewards, topHolderTotalRewards }) => {
+  const message = ":("
   const classes = useStyles();
   const topHolders = useTopHolders();
   const { account } = useWeb3()
@@ -30,13 +30,21 @@ const Vault = ({ tokenBalance, rewardTokenBalance, reward }) => {
     if (topHolders.length > 0) calculateTopHolderStanding();
   }, [topHolders])
 
-
+  console.log(toLower(topHolderReward.rewards).toString())
   return (
     <Container maxWidth="md" className={classes.root}>
       <Typography variant="h2" align="center">
         <b>ADA VAULT</b>
+        {/* <br/>
+        <b style={{fontSize: '40px'}} >{totalRewards} ADA to claim 🔥</b> */}
       </Typography>
       <Grid container spacing={4} style={{ marginTop: 20 }}>
+        <Grid item xs={12} sm={6}>
+          <VaultCard text="ADA Vault" value={`${totalRewards} 🔥`} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <VaultCard text="Top Holders Vault" value={`${topHolderTotalRewards} 🔥`} />
+        </Grid>
         <Grid item xs={12} sm={6}>
           <VaultCard text="$MFLOKIADA Balance" value={tokenBalance} />
         </Grid>
@@ -47,7 +55,7 @@ const Vault = ({ tokenBalance, rewardTokenBalance, reward }) => {
           <VaultCard text="ADA Vault Rewards" value={reward} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <VaultCard text="TOP 100 Rewards" value="0" />
+          <VaultCard text="TOP 100 Rewards" value={totalUserTopReward} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <VaultCard text="ADA Balance" value={rewardTokenBalance} />

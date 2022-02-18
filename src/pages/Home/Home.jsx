@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   useEagerConnect();
   const classes = useStyles();
-  const { tokenBalance, rewardTokenBalance, reward, claimTimeLeft, reload } = useTokenInfo();
-  
+  const { totalUserTopReward, tokenBalance, rewardTokenBalance, reward, topHolderReward, claimTimeLeft, totalRewards, topHolderTotalRewards, reload } = useTokenInfo();
+
   return (
     <div className={classes.root}>
       <Welcome />
-      <Vault tokenBalance={tokenBalance} rewardTokenBalance={rewardTokenBalance} reward={reward} />
-      <Rewards reward={reward} claimTimeLeft={claimTimeLeft} reload={reload} />
+      <Vault totalUserTopReward={totalUserTopReward} topHolderReward={topHolderReward} tokenBalance={tokenBalance} rewardTokenBalance={rewardTokenBalance} reward={reward} totalRewards={totalRewards} topHolderTotalRewards={topHolderTotalRewards} />
+      <Rewards reward={reward} topHolderReward={topHolderReward} claimTimeLeft={claimTimeLeft} reload={reload} />
       <ClaimHistory />
     </div>
   );

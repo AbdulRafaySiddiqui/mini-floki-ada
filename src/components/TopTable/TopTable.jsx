@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { BSC_TOKEN_BALANCE_URL } from "src/assets/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -53,6 +54,7 @@ const TopTable = ({ columns, rows }) => {
         <TableBody>
           {rows.map((row) => (
             <TableRow
+              onClick={()=> window.open(`${BSC_TOKEN_BALANCE_URL}${row[1]}`, '_blank')}
               key={uuid()}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               className={classes.row}

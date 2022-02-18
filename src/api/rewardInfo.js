@@ -23,5 +23,6 @@ export const getTopHolders = async () => {
 
 export const getUserRewards = async (account) => {
     const result = await api.get(`user-rewards/${account}`)
+    console.log(result)
     return result.data;
 }

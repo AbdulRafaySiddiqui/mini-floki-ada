@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import { Button, Card, Container, Grid, Typography } from "@mui/material";
-import { useNormalRewardClaim } from "src/hooks/useRewardClaim";
+import { useNormalRewardClaim, useTopHolderRewardClaim } from "src/hooks/useRewardClaim";
+import { toLower } from '@react-dapp/wallet'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,9 +17,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Rewards = ({ reward, claimTimeLeft, reload }) => {
+const Rewards = ({ reward, claimTimeLeft, reload, topHolderReward }) => {
   const classes = useStyles();
-  const { txPending, claim } = useNormalRewardClaim(reload)
+  const rewardClaim = useNormalRewardClaim(reload)
+  const topHolderRewardClaim = useTopHolderRewardClaim(reload)
+
   return (
     <Container maxWidth="md" className={classes.root}>
       <Typography align="center" variant="h4" style={{ margin: "20px 20px" }}>
@@ -26,10 +29,10 @@ const Rewards = ({ reward, claimTimeLeft, reload }) => {
       </Typography>
       <Grid container spacing={4}>
         <Grid item xs={12} sm={6}>
-          <Reward title='ADA Vault Rewards' reward={reward} pending={txPending} claim={claim} claimTimeLeft={claimTimeLeft} />
+          <Reward title='ADA Vault Reward' reward={reward} pending={rewardClaim.txPending} claim={rewardClaim.claim} claimTimeLeft={claimTimeLeft} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Reward title='Top 100 Holder Rewards' reward={0} pending={false} claim={null} />
+          <Reward title="Top Holders Reward" subtitle='(Claim Time 16:30UTC)' reward={toLower(topHolderReward.rewards).toFixed(0)} pending={topHolderRewardClaim.txPending} claim={() => topHolderRewardClaim.claim(topHolderReward)} claimTimeLeft={0} disabled={!topHolderReward.signature} />
         </Grid>
       </Grid>
     </Container>
@@ -38,7 +41,7 @@ const Rewards = ({ reward, claimTimeLeft, reload }) => {
 
 export default Rewards;
 
-const Reward = ({ title, reward, claim, pending, claimTimeLeft }) => {
+const Reward = ({ subtitle, title, reward, claim, pending, claimTimeLeft, disabled }) => {
   const classes = useStyles();
   const [timeLeft, setTimeLeft] = useState(null);
 
@@ -95,7 +98,6 @@ const Reward = ({ title, reward, claim, pending, claimTimeLeft }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       const time = getTimeLeft(claimTimeLeft - Math.floor((new Date()).getTime() / 1000))
-      console.log(time)
       setTimeLeft(getTimeText(time))
 
       if (!time)
@@ -111,6 +113,7 @@ const Reward = ({ title, reward, claim, pending, claimTimeLeft }) => {
       style={{ flexFlow: "column" }}
     >
       <Typography variant="h6">{title}</Typography>
+      <Typography style={{ minHeight: '20px' }} variant="h8">{subtitle}</Typography>
       <Typography variant="h4" style={{ marginTop: 20 }}>
         <b>{reward}</b>
       </Typography>
@@ -118,7 +121,7 @@ const Reward = ({ title, reward, claim, pending, claimTimeLeft }) => {
         variant="contained"
         color="secondary"
         className={classes.claimBtn}
-        disabled={pending || timeLeft}
+        disabled={pending || timeLeft || disabled}
         onClick={claim}
       >
         {pending ? 'Pending..' : `Claim ${timeLeft ? `in ${timeLeft}` : ''}`}

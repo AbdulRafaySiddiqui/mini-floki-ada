@@ -6,6 +6,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { v4 as uuid } from "uuid";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useWalletModal, useWeb3 } from "@react-dapp/wallet";
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,28 +86,28 @@ const links = [
     links: [
       {
         text: "Features",
-        href: "#",
+        href: "https://www.miniflokiada.com/#Features",
       },
       {
         text: "Tokenomics",
-        href: "#",
+        href: "https://www.miniflokiada.com/#Tokenomics",
       },
       {
         text: "Whitepaper",
-        href: "#",
+        href: "https://uploads-ssl.webflow.com/614f489a7a9f1a14f0740a5c/61695037fd4174d73a52c574_Mini%20Floki%20Ada%20(8).pdf",
       },
     ],
   },
   {
-    text: "Nft Marketplace",
+    text: "NFT Marketplace",
     href: "#",
     links: [
       {
-        text: "MiniDogeADA Nft",
-        href: "#",
+        text: "MiniFlokiADA NFT",
+        href: "https://www.miniflokiada.com/miniflokiada-nft",
       },
       {
-        text: "Marketplace (comming soon)",
+        text: "Marketplace (coming soon)",
         href: "#",
       },
     ],
@@ -116,22 +117,22 @@ const links = [
     href: "#",
     links: [
       {
-        text: "Doggy Run (comming soon)",
-        href: "#",
+        text: "Minifloki Rush (coming soon)",
+        href: "https://www.miniflokiada.com/minigames",
       },
     ],
   },
   {
     text: "Charity",
-    href: "#",
+    href: "https://www.miniflokiada.com/#Dog-charity",
     links: [
-      {
-        text: "Donation",
-        href: "#",
-      },
+      // {
+      //   text: "Donation",
+      //   href: "#",
+      // },
       {
         text: "Charity",
-        href: "#",
+        href: "https://www.miniflokiada.com/#Dog-charity",
       },
     ],
   },
@@ -140,6 +141,7 @@ const links = [
 const Navbar = () => {
   const { setOpen: openWallet } = useWalletModal();
   const { connected, displayAccount } = useWeb3();
+  const history = useHistory();
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -156,13 +158,13 @@ const Navbar = () => {
     <div className={classes.root}>
       <Container maxWidth="lg" style={{ height: "100%" }}>
         <div className={classes.navWrapper}>
-          <img src={Logo} alt="logo" height="50px" />
+          <img src={Logo} alt="logo" height="50px" style={{ cursor: 'pointer' }} onClick={() => window.open('https://www.miniflokiada.com/', '_blank')} />
 
           <div className={classes.navRight}>
             {links.map((item) => (
               <NavLink key={uuid()} {...item} />
             ))}
-            <Button color="secondary" variant="bold">
+            <Button color="secondary" variant="bold" onClick={() => history.push('/')}>
               ADA Vault
             </Button>
             <Button
@@ -181,7 +183,7 @@ const Navbar = () => {
             onClose={handleClose}
             anchorReference="anchorPosition"
             anchorPosition={{ top: 80, left: 0 }}
-            
+
             anchorOrigin={{
               vertical: "bottom",
               horizontal: "left",

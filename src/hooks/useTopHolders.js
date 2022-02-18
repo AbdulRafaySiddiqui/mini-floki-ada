@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { getTopHolders } from 'src/api/rewardInfo';
 import BigNumber from 'bignumber.js'
+import { toLower } from '@react-dapp/wallet';
 
 const useTopHolders = () => {
     const [topHolders, setTopHolders] = useState([])
 
     const fetch = async () => {
         let data = await getTopHolders();
-        data = data.map((e) => {
-            return {
-                ...e,
-                amount: new BigNumber(e.amount).div(new BigNumber(10).exponentiatedBy(18)).toFixed(2)
-            }
-        })
-        setTopHolders(data);
+        if (data.length > 0) {
+            data = data.map((e) => {
+                return {
+                    ...e,
+                    amount: toLower(e.amount, 9).toFormat(2)
+                }
+            })
+            setTopHolders(data);
+        }
     }
 
     useEffect(() => {
